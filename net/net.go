@@ -390,6 +390,7 @@ func WrapPacketConn(pc net.PacketConn) (PacketConn, error) {
 func InterfaceMultiaddrs() ([]ma.Multiaddr, error) {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
+		anet.SetAndroidVersion(12)
 		addrs, err = anet.InterfaceAddrs()
 		if err != nil {
 			return nil, err

@@ -11,6 +11,7 @@ import (
 	"net"
 
 	ma "github.com/multiformats/go-multiaddr"
+	"github.com/wlynxg/anet"
 )
 
 // Conn is the equivalent of a net.Conn object. It is the
@@ -389,7 +390,10 @@ func WrapPacketConn(pc net.PacketConn) (PacketConn, error) {
 func InterfaceMultiaddrs() ([]ma.Multiaddr, error) {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
-		return nil, err
+		addrs, err = anet.InterfaceAddrs()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	maddrs := make([]ma.Multiaddr, len(addrs))
